@@ -532,9 +532,6 @@ PrefabInstance:
     m_AddedComponents:
     - targetCorrespondingSourceObject: {fileID: 2887319950283545006, guid: 391ff6ef396deec4db2976929c15b26f, type: 3}
       insertIndex: -1
-      addedObject: {fileID: 6431886295436445389}
-    - targetCorrespondingSourceObject: {fileID: 2887319950283545006, guid: 391ff6ef396deec4db2976929c15b26f, type: 3}
-      insertIndex: -1
       addedObject: {fileID: 6431886295436445393}
     - targetCorrespondingSourceObject: {fileID: 2887319950283545006, guid: 391ff6ef396deec4db2976929c15b26f, type: 3}
       insertIndex: -1
@@ -542,6 +539,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 2887319950283545006, guid: 391ff6ef396deec4db2976929c15b26f, type: 3}
       insertIndex: -1
       addedObject: {fileID: 6431886295436445394}
+    - targetCorrespondingSourceObject: {fileID: 2887319950283545006, guid: 391ff6ef396deec4db2976929c15b26f, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 6431886295436445389}
   m_SourcePrefab: {fileID: 100100000, guid: 391ff6ef396deec4db2976929c15b26f, type: 3}
 --- !u!1 &6431886295436445388 stripped
 GameObject:
@@ -655,7 +655,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 624da02af46ad5a4183913b161e29dd3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  animator: {fileID: 6431886295436445389}
+  playerAnimator: {fileID: 6431886295436445389}
+  boxCollider: {fileID: 6431886295436445392}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0

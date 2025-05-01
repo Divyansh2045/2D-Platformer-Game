@@ -1,25 +1,26 @@
+using JetBrains.Annotations;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
 public class PlayerController : MonoBehaviour
 {
-    public Animator animator;
-    private BoxCollider2D boxCollider;
-    private Vector2 originalSize;
-    private Vector2 originalOffSet;
+    [SerializeField] private Animator playerAnimator;
+    [SerializeField] private BoxCollider2D boxCollider;
+    private Vector2 boxColOriginalSize;
+    private Vector2 boxColOriginalOffSet;
+
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        boxCollider = GetComponent<BoxCollider2D>();
-        originalSize = boxCollider.size;
-        originalOffSet = boxCollider.offset;
+        boxColOriginalSize = boxCollider.size;
+        boxColOriginalOffSet = boxCollider.offset;
     }
 
     // Update is called once per frame
     void Update()
     {
         float speed = Input.GetAxis("Horizontal");
-        animator.SetFloat("Speed", Mathf.Abs(speed));
+        playerAnimator.SetFloat("Speed", Mathf.Abs(speed));
         Vector3 scale = transform.localScale;
         if (speed < 0)
         {
@@ -33,19 +34,48 @@ public class PlayerController : MonoBehaviour
 
         transform.localScale = scale;
 
-        bool isCrouching = Input.GetKey(KeyCode.LeftControl);
-        animator.SetBool("Crouch", isCrouching);
+        float VerticalInput = Input.GetAxis("Vertical");
+        playJumpAnimation(VerticalInput);
 
-        if (isCrouching)
+        if (Input.GetKey(KeyCode.LeftControl))
         {
-            boxCollider.size = new Vector2(originalSize.x, originalSize.y / 2f);
-            boxCollider.offset = new Vector2(originalOffSet.x, originalOffSet.y - 0.25f);
+            crouch(true);
         }
         else
         {
-            boxCollider.size = originalSize;
-            boxCollider.offset = originalOffSet;
+            crouch(false);
         }
-        Debug.Log("Collider size: " + boxCollider.size);
     }
+    public void crouch(bool crouch)
+    {
+        if (crouch == true)
+        {
+            float offsetX = -0.566f;
+            float offsetY = 0.61224f;
+
+            float sizeX = 0.84055f;
+            float sizeY = 1.34307f;
+
+            boxCollider.offset = new Vector2(offsetX, offsetY);
+            boxCollider.size = new Vector2(sizeX, sizeY);
+
+        }
+        else
+        {
+            boxCollider.offset = boxColOriginalOffSet;
+            boxCollider.size = boxColOriginalSize;
+        }
+
+        playerAnimator.SetBool("Crouch", crouch);
+
+    }
+    public void playJumpAnimation(float vertical)
+    {
+        if (vertical > 0)
+        {
+            playerAnimator.SetTrigger("Jump");
+        }
+    }
+
+
 }
