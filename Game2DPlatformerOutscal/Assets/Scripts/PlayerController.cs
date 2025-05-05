@@ -8,6 +8,7 @@ public class PlayerController : MonoBehaviour
 {
     [SerializeField] private Animator playerAnimator;
     [SerializeField] private BoxCollider2D boxCollider;
+    [SerializeField] LayerMask platformLayerMask;
     private Vector2 boxColOriginalSize;
     private Vector2 boxColOriginalOffSet;
     public float speed;
@@ -36,9 +37,6 @@ public class PlayerController : MonoBehaviour
         playMovementAnimation(horizontal, vertical);
         moveCharacter(horizontal, vertical);
 
-       
-
-       // playJumpAnimation(VerticalInput);
 
         if (Input.GetKey(KeyCode.LeftControl))
         {
@@ -57,7 +55,7 @@ public class PlayerController : MonoBehaviour
         position.x = position.x + horizontal * speed * Time.deltaTime;
         transform.position = position;
 
-        if (vertical > 0)
+        if (vertical > 0 && IsGrounded())
         {
             rb2D.AddForce(new Vector2(0f, jump), ForceMode2D.Force);
         }
@@ -80,7 +78,7 @@ public class PlayerController : MonoBehaviour
 
         transform.localScale = scale;
 
-        if (vertical > 0)
+        if (vertical > 0 && IsGrounded())
         {
             playerAnimator.SetBool("Jump", true);
         }
@@ -112,15 +110,28 @@ public class PlayerController : MonoBehaviour
         playerAnimator.SetBool("Crouch", crouch);
 
     }
-   // public void playJumpAnimation(float vertical)
-   // {
-   //     if (vertical > 0)
-    //    {
-   //         playerAnimator.SetTrigger("Jump");
- //       }
-  //  }
-
     
+    private bool IsGrounded()
+    {
+        float extraHeight = 0.1f;
+        Color rayColor;
+        RaycastHit2D raycastHit = Physics2D.BoxCast(boxCollider.bounds.center,boxCollider.bounds.size, 0f, Vector2.down, extraHeight, platformLayerMask);
+        if (raycastHit.collider != null)
+        {
+            rayColor = Color.green;
+        }
+        else
+        {
+            rayColor = Color.red;
+        }
+        Debug.DrawRay(boxCollider.bounds.center + new Vector3 (boxCollider.bounds.extents.x,0), Vector3.down * (boxCollider.bounds.extents.y + extraHeight), rayColor);
+        Debug.DrawRay(boxCollider.bounds.center - new Vector3(boxCollider.bounds.extents.x, 0), Vector3.down * (boxCollider.bounds.extents.y + extraHeight), rayColor);
+        Debug.DrawRay(boxCollider.bounds.center + new Vector3(boxCollider.bounds.extents.x, boxCollider.bounds.extents.y + extraHeight), Vector3.down * (boxCollider.bounds.extents.y + extraHeight), rayColor);
 
+
+        return raycastHit.collider != null;
+
+                                
+    }
 
 }
