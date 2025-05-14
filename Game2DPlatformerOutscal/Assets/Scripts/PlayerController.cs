@@ -14,6 +14,7 @@ public class PlayerController : MonoBehaviour
     public float speed;
     public float jump;
     private Rigidbody2D rb2D;
+    public ScoreController scoreController;
 
     private void Awake()
     {
@@ -134,4 +135,9 @@ public class PlayerController : MonoBehaviour
                                 
     }
 
+    public void pickUpKey()
+    {
+        Debug.Log("Player picked up the key");
+        scoreController.IncrementScore(10);
+    }
 }
