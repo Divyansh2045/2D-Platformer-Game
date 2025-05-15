@@ -1,7 +1,80 @@
+using System;
 using UnityEngine;
 
 public class EnemyController : MonoBehaviour
 {
+    [SerializeField] private Animator enemyAnimator;
+
+    [SerializeField] private float moveSpeed;
+    [SerializeField] private Transform groundDetector;
+    [SerializeField] private float rayDistance;
+    [SerializeField] private Transform wallDetector;
+
+    private int direction = 1; // 1 = right, -1 = left
+
+    void Update()
+    {
+        patrolEnemy();
+        playMovementAnimation();
+    }
+
+    private void patrolEnemy()
+    {
+       // enemyAnimator.SetBool("IsPatrol", true);
+        
+        if(!IsGrounded() || IsHittingWall())
+        {
+            flipEnemy();
+        }
+
+        moveEnemy();
+    }
+
+    private bool IsGrounded()
+    {
+        Color rayColor;
+        RaycastHit2D groundHit = Physics2D.Raycast(groundDetector.transform.position, Vector2.down, rayDistance);
+        if (groundHit.collider == null)
+        {
+            rayColor = Color.red;
+        }
+        else
+        {
+            rayColor = Color.green;
+        }
+            Debug.DrawRay(groundDetector.position, Vector2.down * rayDistance, rayColor);
+        return groundHit.collider != null;
+    }
+
+    private bool IsHittingWall()
+    {
+        Color rayColor;
+        RaycastHit2D wallHit = Physics2D.Raycast(wallDetector.transform.position, Vector2.right, rayDistance);
+        if (wallHit.collider == null)
+        {
+            rayColor = Color.green;
+        }
+        else
+        {
+            rayColor = Color.red;
+        }
+        Debug.DrawRay(wallDetector.position, Vector2.right * rayDistance, rayColor);
+        return wallHit.collider != null;    
+    } 
+
+    private void moveEnemy()
+    {
+        transform.Translate(Vector2.right * direction * moveSpeed * Time.deltaTime);
+    }
+
+    private void flipEnemy()
+    {
+        Vector3 scaleVector = transform.localScale;
+        scaleVector.x *= -1;
+        transform.localScale = scaleVector;
+        direction *= -1;
+    }
+
     private void OnCollisionEnter2D(Collision2D collision)
     {
         if(collision.gameObject.GetComponent<PlayerController>() != null)
@@ -9,5 +82,10 @@ public class EnemyController : MonoBehaviour
             PlayerController playerController = collision.gameObject.GetComponent<PlayerController>();
             playerController.KillPlayer();
         }
+    }
+
+    private void playMovementAnimation()
+    {
+        enemyAnimator.SetFloat("Speed", moveSpeed);
     }
 }
