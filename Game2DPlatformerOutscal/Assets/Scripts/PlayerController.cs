@@ -2,6 +2,7 @@ using System;
 using JetBrains.Annotations;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.SceneManagement;
 using static UnityEditor.Searcher.SearcherWindow.Alignment;
 
 public class PlayerController : MonoBehaviour
@@ -139,5 +140,21 @@ public class PlayerController : MonoBehaviour
     {
         Debug.Log("Player picked up the key");
         scoreController.IncrementScore(10);
+    }
+
+   public void KillPlayer()
+    {
+        Debug.Log("Player has died");
+
+        //Play death animation
+        //Screen message saying game over
+
+        ReloadScene();
+    }
+
+    private void ReloadScene()
+    {
+        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+        Debug.Log("Player has died and game has restarted");
     }
 }

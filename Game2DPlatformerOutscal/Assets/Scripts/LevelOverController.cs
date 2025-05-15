@@ -9,8 +9,8 @@ public class NewMonoBehaviourScript : MonoBehaviour
         if(collision.GetComponent<PlayerController>() !=null)
         {
             Debug.Log("Level is over");
-            int currentSceneIndex = SceneManager.GetActiveScene().buildIndex;
-            SceneManager.LoadScene(currentSceneIndex);
+            int nextSceneIndex = SceneManager.GetActiveScene().buildIndex + 1;
+            SceneManager.LoadScene(nextSceneIndex);
         }
     }
 
