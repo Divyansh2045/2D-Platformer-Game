@@ -16,6 +16,8 @@ public class PlayerController : MonoBehaviour
     public float jump;
     private Rigidbody2D rb2D;
     public ScoreController scoreController;
+    public GameOverController gameOverController;
+    public int health;
 
     private void Awake()
     {
@@ -144,12 +146,13 @@ public class PlayerController : MonoBehaviour
 
    public void KillPlayer()
     {
-        Debug.Log("Player has died");
+            Debug.Log("Player has died");
 
-        //Play death animation
-        //Screen message saying game over
+            playDeathAnimation();
+        gameOverController.playerDied();
 
-        ReloadScene();
+           // ReloadScene();
+        
     }
 
     private void ReloadScene()
@@ -157,4 +160,19 @@ public class PlayerController : MonoBehaviour
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
         Debug.Log("Player has died and game has restarted");
     }
+
+    private void playDeathAnimation()
+    {
+            playerAnimator.SetBool("Death", true); 
+    }
+
+     public void reduceHealth()
+    {
+        health = health - 1; 
+        if (health <=0)
+        {
+            KillPlayer();
+        }
+    }
+
 }
