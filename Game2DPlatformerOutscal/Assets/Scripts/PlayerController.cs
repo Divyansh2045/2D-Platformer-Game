@@ -155,11 +155,11 @@ public class PlayerController : MonoBehaviour
         
     }
 
-    private void ReloadScene()
+   /* private void ReloadScene()
     {
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
         Debug.Log("Player has died and game has restarted");
-    }
+    } */
 
     private void playDeathAnimation()
     {
