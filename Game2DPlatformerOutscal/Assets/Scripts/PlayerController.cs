@@ -150,9 +150,10 @@ public class PlayerController : MonoBehaviour
 
             playDeathAnimation();
         gameOverController.playerDied();
+        this.enabled = false;
 
-           // ReloadScene();
-        
+        // ReloadScene();
+
     }
 
    /* private void ReloadScene()
