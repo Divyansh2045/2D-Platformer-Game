@@ -11,14 +11,15 @@ public class GameOverController : MonoBehaviour
         buttonRestart.onClick.AddListener(ReloadScene);
     }
 
-    private void ReloadScene()
-    {
-        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
-        Debug.Log("Player has died and game has restarted");
-    }
-
     public void playerDied()
     {
         gameObject.SetActive(true);
+    }
+
+    private void ReloadScene()
+    {
+       Scene scene =  SceneManager.GetActiveScene();
+        SceneManager.LoadScene(scene.buildIndex);
+        Debug.Log("Player has died and game has restarted");
     }
 }
