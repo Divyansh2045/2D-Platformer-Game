@@ -12,6 +12,7 @@ public class NewMonoBehaviourScript : MonoBehaviour
             Debug.Log("Level is over");
             int nextSceneIndex = SceneManager.GetActiveScene().buildIndex + 1;
             SceneManager.LoadScene(nextSceneIndex);
+            LevelManager.Instance.MarkCurrentLevelCompleted();
         }
     }
 

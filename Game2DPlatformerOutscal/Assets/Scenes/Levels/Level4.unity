@@ -1392,7 +1392,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 664142127}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b7fcabbb070ee2d459502a492f9a54f1, type: 3}
+  m_Script: {fileID: 11500000, guid: 077046641fc33a342b9625db82a03079, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1001 &777549696
@@ -1472,6 +1472,7 @@ GameObject:
   - component: {fileID: 940532105}
   - component: {fileID: 940532104}
   - component: {fileID: 940532103}
+  - component: {fileID: 940532107}
   m_Layer: 0
   m_Name: OutofBoundsLevelRestart
   m_TagString: Untagged
@@ -1607,6 +1608,18 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &940532107
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 940532102}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6fd242ef53af5894d97594f683243204, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &960838681
 PrefabInstance:
   m_ObjectHideFlags: 0

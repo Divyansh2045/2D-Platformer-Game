@@ -7,12 +7,13 @@ using UnityEngine.UI;
 
 public class MainMenuController : MonoBehaviour
 {
-    public Button playButton;
-    public GameObject levelSelection;
-    public Button quitButton;
+    [SerializeField] private Button playButton;
+    [SerializeField] private GameObject levelSelection;
+    [SerializeField] private Button quitButton;
 
     private void Awake()
-    {
+    { 
+     
         playButton.onClick.AddListener(PlayGame);
         quitButton.onClick.AddListener(QuitGame);
     }
@@ -27,7 +28,7 @@ public class MainMenuController : MonoBehaviour
 
     private void PlayGame()
     {
-       Scene scene = SceneManager.GetActiveScene();
+      // Scene scene = SceneManager.GetActiveScene();
         levelSelection.SetActive(true);
     }
 
