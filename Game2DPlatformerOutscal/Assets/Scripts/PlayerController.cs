@@ -40,6 +40,7 @@ public class PlayerController : MonoBehaviour
 
         playMovementAnimation(horizontal, vertical);
         moveCharacter(horizontal, vertical);
+       
 
 
         if (Input.GetKey(KeyCode.LeftControl))
@@ -62,6 +63,7 @@ public class PlayerController : MonoBehaviour
         if (vertical > 0 && IsGrounded())
         {
             rb2D.AddForce(new Vector2(0f, jump), ForceMode2D.Force);
+            playerAnimator.SetTrigger("Jump");
         }
 
 
@@ -69,6 +71,8 @@ public class PlayerController : MonoBehaviour
     private void playMovementAnimation(float horizontal, float vertical)
     {
         playerAnimator.SetFloat("Speed", Mathf.Abs(horizontal));
+        playerAnimator.SetFloat("vSpeed", rb2D.linearVelocity.y);
+        playerAnimator.SetBool("isGrounded", IsGrounded());
         Vector3 scale = transform.localScale;
         if (horizontal < 0)
         {
@@ -82,14 +86,17 @@ public class PlayerController : MonoBehaviour
 
         transform.localScale = scale;
 
-        if (vertical > 0 && IsGrounded())
+       /* if (vertical > 0 && IsGrounded())
         {
-            playerAnimator.SetBool("Jump", true);
+            // playerAnimator.SetBool("Jump", true);
+          //  playerAnimator.SetTrigger("Jump");
         }
-        else
-        {
-            playerAnimator.SetBool("Jump", false);
-        }
+
+         else
+          {
+              playerAnimator.SetBool("Jump");
+
+      } */
     }
     public void crouch(bool crouch)
     {
@@ -150,26 +157,23 @@ public class PlayerController : MonoBehaviour
 
             playDeathAnimation();
         gameOverController.playerDied();
-        this.enabled = false;
-
-        // ReloadScene();
+        disablePlayer();
 
     }
-
-   /* private void ReloadScene()
+    public void disablePlayer()
     {
-        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
-        Debug.Log("Player has died and game has restarted");
-    } */
+        this.enabled = false;
+    }
 
     private void playDeathAnimation()
     {
-            playerAnimator.SetBool("Death", true); 
+        playerAnimator.SetTrigger("Death");
+       // GetComponent<PlayerMovement>().enabled = false;
     }
 
      public void reduceHealth()
     {
-        health = health - 1; 
+        health --;
         if (health <=0)
         {
             KillPlayer();

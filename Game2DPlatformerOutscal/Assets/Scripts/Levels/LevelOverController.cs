@@ -4,15 +4,35 @@ using UnityEngine.SceneManagement;
 
 public class NewMonoBehaviourScript : MonoBehaviour
 {
+  public LevelCompleteScreen levelCompleteScreen;
+
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if(collision.GetComponent<PlayerController>() !=null)
+        PlayerController playerController = collision.GetComponent<PlayerController>();
+        if (collision.GetComponent<PlayerController>() !=null)
         {
             Debug.Log("Level is over");
-            int nextSceneIndex = SceneManager.GetActiveScene().buildIndex + 1;
-            SceneManager.LoadScene(nextSceneIndex);
             LevelManager.Instance.MarkCurrentLevelCompleted();
+            
+            playerController.disablePlayer();
+            // int nextSceneIndex = SceneManager.GetActiveScene().buildIndex + 1;
+            if (levelCompleteScreen != null)
+            {
+                levelCompleteScreen.levelComplete();
+               
+                
+            }
+            else
+            {
+                Debug.LogError("LevelCompleteScreen is not assigned in the inspector!");
+            }
+            
+
+
+
+            //SceneManager.LoadScene(nextSceneIndex);
+
         }
     }
 

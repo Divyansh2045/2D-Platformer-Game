@@ -8,7 +8,7 @@ using UnityEngine.UI;
 public class MainMenuController : MonoBehaviour
 {
     [SerializeField] private Button playButton;
-    [SerializeField] private GameObject levelSelection;
+    public GameObject levelSelection;
     [SerializeField] private Button quitButton;
 
     private void Awake()

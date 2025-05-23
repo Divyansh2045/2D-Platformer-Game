@@ -49,7 +49,9 @@ public class EnemyController : MonoBehaviour
     private bool IsHittingWall()
     {
         Color rayColor;
-        RaycastHit2D wallHit = Physics2D.Raycast(wallDetector.transform.position, Vector2.right, rayDistance);
+        RaycastHit2D wallHit = Physics2D.Raycast(wallDetector.position, Vector2.right * direction, rayDistance);
+       
+        //RaycastHit2D wallHit = Physics2D.Raycast(wallDetector.transform.position, Vector2.right, rayDistance);
         if (wallHit.collider == null)
         {
             rayColor = Color.green;
@@ -58,7 +60,8 @@ public class EnemyController : MonoBehaviour
         {
             rayColor = Color.red;
         }
-        Debug.DrawRay(wallDetector.position, Vector2.right * rayDistance, rayColor);
+       // Debug.DrawRay(wallDetector.position, Vector2.right * rayDistance, rayColor);
+        Debug.DrawRay(wallDetector.position, Vector2.right * direction * rayDistance, rayColor);
         return wallHit.collider != null;    
     } 
 
@@ -75,12 +78,23 @@ public class EnemyController : MonoBehaviour
         direction *= -1;
     }
 
-    private void OnCollisionEnter2D(Collision2D collision)
-    {
-        if(collision.gameObject.GetComponent<PlayerController>() != null)
+   /* private void OnCollisionEnter2D(Collision2D collision)
+  /  {
+   /     if(collision.gameObject.GetComponent<PlayerController>() != null)
         {
             PlayerController playerController = collision.gameObject.GetComponent<PlayerController>();
             playerController.reduceHealth();
+        }
+    } */
+
+    private void OnTriggerEnter2D(Collider2D other)
+    {
+        if (other.GetComponent<PlayerController>() != null)
+        {
+            PlayerController playerController = other.GetComponent<PlayerController>();
+            playerController.reduceHealth();
+            Debug.Log(" ENemy with Player Tigger took place");
+            enemyAnimator.SetTrigger("Attack");
         }
     }
 

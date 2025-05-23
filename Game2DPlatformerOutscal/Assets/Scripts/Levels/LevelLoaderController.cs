@@ -27,12 +27,13 @@ public class LevelLoaderController : MonoBehaviour
                 break;
 
             case LevelStatus.Unlocked:
+                SceneManager.LoadScene(levelName);
                 break;
 
             case LevelStatus.Completed:
+                SceneManager.LoadScene(levelName);
                 break;
                
         }
-        SceneManager.LoadScene(levelName);
     }
 }
