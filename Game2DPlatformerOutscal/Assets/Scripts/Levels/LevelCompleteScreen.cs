@@ -36,6 +36,7 @@ public class LevelCompleteScreen : MonoBehaviour
         else
         {
             SceneManager.LoadScene("MainMenu");
+            Debug.Log("Game has been completed! Congratulations");
         }
     }
 
