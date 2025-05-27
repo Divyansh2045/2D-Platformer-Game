@@ -24,11 +24,12 @@ public class MainMenuController : MonoBehaviour
     {
         Application.Quit();
         Debug.Log("Game is closed");
+        SoundManager.Instance.Play(SoundTypes.BackButton);
     }
 
     private void PlayGame()
     {
-      // Scene scene = SceneManager.GetActiveScene();
+      SoundManager.Instance.Play(SoundTypes.GameStart);   
         levelSelection.SetActive(true);
     }
 

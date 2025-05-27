@@ -27,7 +27,7 @@ public class LevelCompleteScreen : MonoBehaviour
         } */
 
         // SceneManager.LoadScene("MainMenu");
-
+        SoundManager.Instance.Play(SoundTypes.ButtonClick);
         int nextSceneIndex = SceneManager.GetActiveScene().buildIndex + 1;
         if (nextSceneIndex < SceneManager.sceneCountInBuildSettings)
         {
@@ -42,11 +42,13 @@ public class LevelCompleteScreen : MonoBehaviour
 
     private void OpenMainMenu()
     {
+        SoundManager.Instance.Play(SoundTypes.ButtonClick);
         SceneManager.LoadScene("MainMenu"); // Replace with your actual scene name if needed
     }
 
     public void levelComplete()
     {
+        SoundManager.Instance.Play(SoundTypes.LevelComplete);
         gameObject.SetActive(true);
     }
 

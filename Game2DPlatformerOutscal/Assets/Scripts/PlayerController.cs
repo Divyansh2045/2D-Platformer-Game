@@ -59,11 +59,21 @@ public class PlayerController : MonoBehaviour
 
         position.x = position.x + horizontal * speed * Time.deltaTime;
         transform.position = position;
+        // PLAY RUN SOUND ONLY WHEN MOVING & GROUNDED
+        if (Mathf.Abs(horizontal) > 0.1f && IsGrounded())
+        {
+            SoundManager.Instance.PlayRunLoop();
+        }
+        else
+        {
+            SoundManager.Instance.StopRunLoop();
+        }
 
         if (vertical > 0 && IsGrounded())
         {
             rb2D.AddForce(new Vector2(0f, jump), ForceMode2D.Force);
             playerAnimator.SetTrigger("Jump");
+            SoundManager.Instance.Play(SoundTypes.PlayerJump);
         }
 
 
@@ -86,17 +96,6 @@ public class PlayerController : MonoBehaviour
 
         transform.localScale = scale;
 
-       /* if (vertical > 0 && IsGrounded())
-        {
-            // playerAnimator.SetBool("Jump", true);
-          //  playerAnimator.SetTrigger("Jump");
-        }
-
-         else
-          {
-              playerAnimator.SetBool("Jump");
-
-      } */
     }
     public void crouch(bool crouch)
     {
@@ -149,6 +148,8 @@ public class PlayerController : MonoBehaviour
     {
         Debug.Log("Player picked up the key");
         scoreController.IncrementScore(10);
+        SoundManager.Instance.Play(SoundTypes.KeyCollect);
+        SoundManager.Instance.SetVolume(1f);
     }
 
    public void KillPlayer()
@@ -158,6 +159,7 @@ public class PlayerController : MonoBehaviour
             playDeathAnimation();
         gameOverController.playerDied();
         disablePlayer();
+        Destroy(gameObject);
 
     }
     public void disablePlayer()

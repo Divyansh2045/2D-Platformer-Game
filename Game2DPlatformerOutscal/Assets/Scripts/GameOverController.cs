@@ -6,6 +6,7 @@ using UnityEngine.UI;
 public class GameOverController : MonoBehaviour
 {
     public Button buttonRestart;
+   
     private void Awake()
     {
         buttonRestart.onClick.AddListener(ReloadScene);
@@ -13,6 +14,7 @@ public class GameOverController : MonoBehaviour
 
     public void playerDied()
     {
+        SoundManager.Instance.Play(SoundTypes.PlayerDeath);
         gameObject.SetActive(true);
     }
 
@@ -21,5 +23,6 @@ public class GameOverController : MonoBehaviour
        Scene scene =  SceneManager.GetActiveScene();
         SceneManager.LoadScene(scene.buildIndex);
         Debug.Log("Player has died and game has restarted");
+        SoundManager.Instance.Play(SoundTypes.ButtonClick);
     }
 }

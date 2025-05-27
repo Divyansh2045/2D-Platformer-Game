@@ -1,5 +1,6 @@
 using System;
 using UnityEngine;
+using static UnityEditor.Searcher.SearcherWindow.Alignment;
 
 public class EnemyController : MonoBehaviour
 {
@@ -9,6 +10,7 @@ public class EnemyController : MonoBehaviour
     [SerializeField] private Transform groundDetector;
     [SerializeField] private float rayDistance;
     [SerializeField] private Transform wallDetector;
+    [SerializeField] private LayerMask wallLayerMask;
 
     private int direction = 1; // 1 = right, -1 = left
 
@@ -28,12 +30,21 @@ public class EnemyController : MonoBehaviour
         }
 
         moveEnemy();
+
+        if ((IsGrounded()))
+        {
+            SoundManager.Instance.PlayEnemyLoop();
+        }
+        else
+        {
+            SoundManager.Instance.StopEnemyLoop();
+        }
     }
 
     private bool IsGrounded()
     {
         Color rayColor;
-        RaycastHit2D groundHit = Physics2D.Raycast(groundDetector.transform.position, Vector2.down, rayDistance);
+        RaycastHit2D groundHit = Physics2D.Raycast(groundDetector.transform.position, Vector2.down, rayDistance, wallLayerMask);
         if (groundHit.collider == null)
         {
             rayColor = Color.red;
@@ -49,7 +60,7 @@ public class EnemyController : MonoBehaviour
     private bool IsHittingWall()
     {
         Color rayColor;
-        RaycastHit2D wallHit = Physics2D.Raycast(wallDetector.position, Vector2.right * direction, rayDistance);
+        RaycastHit2D wallHit = Physics2D.Raycast(wallDetector.position, Vector2.right * direction, rayDistance, wallLayerMask);
        
         //RaycastHit2D wallHit = Physics2D.Raycast(wallDetector.transform.position, Vector2.right, rayDistance);
         if (wallHit.collider == null)
@@ -63,13 +74,13 @@ public class EnemyController : MonoBehaviour
        // Debug.DrawRay(wallDetector.position, Vector2.right * rayDistance, rayColor);
         Debug.DrawRay(wallDetector.position, Vector2.right * direction * rayDistance, rayColor);
         return wallHit.collider != null;    
-    } 
+    }
 
     private void moveEnemy()
     {
         transform.Translate(Vector2.right * direction * moveSpeed * Time.deltaTime);
+      
     }
-
     private void flipEnemy()
     {
         Vector3 scaleVector = transform.localScale;
@@ -95,6 +106,7 @@ public class EnemyController : MonoBehaviour
             playerController.reduceHealth();
             Debug.Log(" ENemy with Player Tigger took place");
             enemyAnimator.SetTrigger("Attack");
+            SoundManager.Instance.Play(SoundTypes.ChomperAttack);
         }
     }
 
@@ -102,4 +114,13 @@ public class EnemyController : MonoBehaviour
     {
         enemyAnimator.SetFloat("Speed", moveSpeed);
     }
+
+    private void OnDisable()
+    {
+        if (SoundManager.Instance != null)
+        {
+            SoundManager.Instance.StopEnemyLoop();
+        }
+    }
+
 }

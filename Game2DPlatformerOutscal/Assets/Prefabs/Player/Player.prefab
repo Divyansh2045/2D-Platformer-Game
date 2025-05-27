@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 2104311064100608121}
   - component: {fileID: 5668571145870647408}
   - component: {fileID: 4625511399520907699}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Player
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -107,7 +107,7 @@ Rigidbody2D:
   m_Mass: 1
   m_LinearDamping: 0
   m_AngularDamping: 0.05
-  m_GravityScale: 1
+  m_GravityScale: 1.6
   m_Material: {fileID: 0}
   m_IncludeLayers:
     serializedVersion: 2
@@ -183,7 +183,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 64
   speed: 8
-  jump: 80
+  jump: 70
   scoreController: {fileID: 0}
   gameOverController: {fileID: 0}
   health: 3
@@ -219,9 +219,8 @@ GameObject:
   m_Component:
   - component: {fileID: 8962146498061118928}
   - component: {fileID: 3410121241846788193}
-  - component: {fileID: 3319299096173032398}
   - component: {fileID: 4339129314814904640}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Main Camera
   m_TagString: MainCamera
   m_Icon: {fileID: 0}
@@ -294,14 +293,6 @@ Camera:
   m_OcclusionCulling: 1
   m_StereoConvergence: 10
   m_StereoSeparation: 0.022
---- !u!81 &3319299096173032398
-AudioListener:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8664859086184434105}
-  m_Enabled: 1
 --- !u!114 &4339129314814904640
 MonoBehaviour:
   m_ObjectHideFlags: 0
