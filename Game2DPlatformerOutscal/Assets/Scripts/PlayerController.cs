@@ -18,6 +18,7 @@ public class PlayerController : MonoBehaviour
     public ScoreController scoreController;
     public GameOverController gameOverController;
     public int health;
+    private bool canDoubleJump;
 
     private void Awake()
     {
@@ -69,11 +70,33 @@ public class PlayerController : MonoBehaviour
             SoundManager.Instance.StopRunLoop();
         }
 
-        if (vertical > 0 && IsGrounded())
+        if (IsGrounded())
         {
-            rb2D.AddForce(new Vector2(0f, jump), ForceMode2D.Force);
-            playerAnimator.SetTrigger("Jump");
-            SoundManager.Instance.Play(SoundTypes.PlayerJump);
+            canDoubleJump = true;
+        }
+
+        /* if (vertical > 0 && IsGrounded())
+         {
+             rb2D.AddForce(new Vector2(0f, jump), ForceMode2D.Force);
+             playerAnimator.SetTrigger("Jump");
+             SoundManager.Instance.Play(SoundTypes.PlayerJump);
+
+         } */
+        if (Input.GetKeyDown(KeyCode.Space))
+        {
+            if (IsGrounded())
+            {
+                rb2D.linearVelocity = new Vector2(rb2D.linearVelocity.x, jump);
+                playerAnimator.SetTrigger("Jump");
+                SoundManager.Instance.Play(SoundTypes.PlayerJump);
+            }
+            else if (canDoubleJump)
+            {
+                rb2D.linearVelocity = new Vector2(rb2D.linearVelocity.x, jump);
+                playerAnimator.SetTrigger("Jump");
+                SoundManager.Instance.Play(SoundTypes.PlayerJump);
+                canDoubleJump = false;
+            }
         }
 
 

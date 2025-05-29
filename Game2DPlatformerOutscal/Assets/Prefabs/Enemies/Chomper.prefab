@@ -181,6 +181,7 @@ MonoBehaviour:
   wallLayerMask:
     serializedVersion: 2
     m_Bits: 64
+  playerDead: {fileID: 0}
 --- !u!50 &9194781816425307040
 Rigidbody2D:
   serializedVersion: 5
