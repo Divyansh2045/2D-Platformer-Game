@@ -568,7 +568,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   buttonRestart: {fileID: 3916369240376232059}
-  buttonMainMenu: {fileID: 6200564250620594024}
 --- !u!1 &7408776759862313590
 GameObject:
   m_ObjectHideFlags: 0

@@ -183,7 +183,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 64
   speed: 8
-  jump: 10
+  jump: 70
   scoreController: {fileID: 0}
   gameOverController: {fileID: 0}
   health: 3

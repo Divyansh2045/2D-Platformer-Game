@@ -11,7 +11,6 @@ public class EnemyController : MonoBehaviour
     [SerializeField] private float rayDistance;
     [SerializeField] private Transform wallDetector;
     [SerializeField] private LayerMask wallLayerMask;
-    [SerializeField] private ParticleController playerDead;
 
     private int direction = 1; // 1 = right, -1 = left
 
@@ -108,10 +107,6 @@ public class EnemyController : MonoBehaviour
             Debug.Log(" ENemy with Player Tigger took place");
             enemyAnimator.SetTrigger("Attack");
             SoundManager.Instance.Play(SoundTypes.ChomperAttack);
-            playerDead.PlayEffect();
-
-
-
         }
     }
 
