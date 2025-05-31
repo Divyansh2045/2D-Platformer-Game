@@ -49,6 +49,7 @@ public class LevelCompleteScreen : MonoBehaviour
     public void levelComplete()
     {
         SoundManager.Instance.Play(SoundTypes.LevelComplete);
+        Debug.Log("Level complete function is getting called");
         gameObject.SetActive(true);
     }
 

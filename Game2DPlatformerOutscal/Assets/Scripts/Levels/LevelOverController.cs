@@ -20,6 +20,7 @@ public class NewMonoBehaviourScript : MonoBehaviour
             if (levelCompleteScreen != null)
             {
                 levelCompleteScreen.levelComplete();
+                Debug.Log("Level over trigger is happening and the code reaches this point");
                
                 
             }
