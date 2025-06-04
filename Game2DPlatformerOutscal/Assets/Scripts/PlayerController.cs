@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using JetBrains.Annotations;
 using UnityEngine;
 using UnityEngine.InputSystem;
@@ -17,7 +18,9 @@ public class PlayerController : MonoBehaviour
     private Rigidbody2D rb2D;
     public ScoreController scoreController;
     public GameOverController gameOverController;
+    public HealthUI healthUI;
     public int health;
+    private bool canDoubleJump;
 
     private void Awake()
     {
@@ -69,11 +72,29 @@ public class PlayerController : MonoBehaviour
             SoundManager.Instance.StopRunLoop();
         }
 
-        if (vertical > 0 && IsGrounded())
+        if (IsGrounded())
         {
-            rb2D.AddForce(new Vector2(0f, jump), ForceMode2D.Force);
-            playerAnimator.SetTrigger("Jump");
-            SoundManager.Instance.Play(SoundTypes.PlayerJump);
+            canDoubleJump = true;
+        }
+
+        if (Input.GetKeyDown(KeyCode.Space))
+        {
+            if (IsGrounded())
+            {
+                // First jump using velocity
+                rb2D.linearVelocity = new Vector2(rb2D.linearVelocity.x, jump);
+                playerAnimator.SetTrigger("Jump");
+                SoundManager.Instance.Play(SoundTypes.PlayerJump);
+                canDoubleJump = true;
+            }
+            else if (canDoubleJump)
+            {
+                // Double jump using velocity
+                rb2D.linearVelocity = new Vector2(rb2D.linearVelocity.x, jump);
+                playerAnimator.SetTrigger("Jump");
+                SoundManager.Instance.Play(SoundTypes.PlayerJump);
+                canDoubleJump = false;
+            }
         }
 
 
@@ -152,14 +173,21 @@ public class PlayerController : MonoBehaviour
         SoundManager.Instance.SetVolume(1f);
     }
 
-   public void KillPlayer()
+    public IEnumerator gameOverCouroutine()
     {
-            Debug.Log("Player has died");
-
-            playDeathAnimation();
+        yield return new WaitForSeconds(1.5f);
         gameOverController.playerDied();
         disablePlayer();
         Destroy(gameObject);
+    }
+
+   public void KillPlayer()
+    {
+            Debug.Log("Player has died");
+            playDeathAnimation();
+        SoundManager.Instance.Play(SoundTypes.PlayerDeath);
+        StartCoroutine(gameOverCouroutine());
+        
 
     }
     public void disablePlayer()
@@ -167,7 +195,7 @@ public class PlayerController : MonoBehaviour
         this.enabled = false;
     }
 
-    private void playDeathAnimation()
+    public void playDeathAnimation()
     {
         playerAnimator.SetTrigger("Death");
        // GetComponent<PlayerMovement>().enabled = false;
@@ -176,7 +204,12 @@ public class PlayerController : MonoBehaviour
      public void reduceHealth()
     {
         health --;
-        if (health <=0)
+        if (healthUI != null)
+        {
+            healthUI.UpdateHearts(health); // Animate the heart corresponding to the lost health
+        }
+
+        if (health <= 0)
         {
             KillPlayer();
         }

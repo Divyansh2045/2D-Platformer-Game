@@ -430,7 +430,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   levelSelectionButton: {fileID: 3535257119105925040}
   MainMenuButton: {fileID: 829739988444407499}
-  mainMenuController: {fileID: 0}
 --- !u!1 &6236186178570339121
 GameObject:
   m_ObjectHideFlags: 0

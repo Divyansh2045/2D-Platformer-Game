@@ -13,6 +13,7 @@ public class LevelManager : MonoBehaviour
 
     private void Awake()
     {
+      //  PlayerPrefs.DeleteAll();
         if (Instance == null)
         {
             instance = this;
