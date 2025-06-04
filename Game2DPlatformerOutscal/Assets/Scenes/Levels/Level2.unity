@@ -2458,22 +2458,6 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 2353981552430331614, guid: 90400fb8630ce154c8608bbdd18535c9, type: 3}
-      propertyPath: ColorModule.enabled
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2353981552430331614, guid: 90400fb8630ce154c8608bbdd18535c9, type: 3}
-      propertyPath: InitialModule.startColor.maxColor.b
-      value: 0.09411766
-      objectReference: {fileID: 0}
-    - target: {fileID: 2353981552430331614, guid: 90400fb8630ce154c8608bbdd18535c9, type: 3}
-      propertyPath: InitialModule.startColor.maxColor.g
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2353981552430331614, guid: 90400fb8630ce154c8608bbdd18535c9, type: 3}
-      propertyPath: InitialModule.startColor.maxColor.r
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 5668571145870647408, guid: 90400fb8630ce154c8608bbdd18535c9, type: 3}
       propertyPath: healthUI
       value: 
